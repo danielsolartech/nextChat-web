@@ -1,14 +1,27 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ForkTSCheckerWebpackPluginh = require('fork-ts-checker-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+  context: __dirname,
+  mode: 'development',
+  devtool: 'source-map',
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
-    './src/index.jsx',
+    './src/index.tsx',
   ],
+  resolve: {
+    extensions: [
+      '.ts',
+      '.tsx',
+      '.js',
+      '.jsx',
+    ],
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
@@ -18,13 +31,24 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         include: path.join(__dirname, 'src'),
         loaders: [
           'react-hot-loader/webpack',
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            }
+          },
           'babel-loader',
         ],
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
       },
       {
         test: /\.html$/,
@@ -42,26 +66,12 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              outputStyle: 'compressed',
+              sassOptions: {
+                outputStyle: 'compressed',
+              },
             },
           },
         ],
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'images/',
-          name: isDevelopment ? '[path][name].[ext]?[contenthash]' : '[contenthash].[ext]',
-        },
-      },
-      {
-        test: /\.(woff(2)?|ttf|eot)/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'fonts/',
-          name: isDevelopment ? '[path][name].[ext]?[contenthash]' : '[contenthash].[ext]',
-        }
       },
     ],
   },
@@ -71,11 +81,14 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
     }),
+    new ForkTSCheckerWebpackPluginh(),
   ],
   devServer: {
     hot: true,
     contentBase: path.join(__dirname, 'public'),
     compress: true,
+    host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 8100,
+    historyApiFallback: true,
   }
 };

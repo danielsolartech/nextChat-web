@@ -1,0 +1,76 @@
+$colorsCodes: (
+  'Red': #f44336,
+  'RedHover': #d32f2f,
+  'Pink': #e91e63,
+  'PinkHover': #c2185b,
+  'Purple': #9c27b0,
+  'PurpleHover': #7b1fa2,
+  'DeepPurple': #673ab7,
+  'DeepPurpleHover': #512da8,
+  'Indigo': #3f51b5,
+  'IndigoHover': #303f9f,
+  'Blue': #2196f3,
+  'BlueHover': #1976d2,
+  'LightBlue': #03a9f4,
+  'LightBlueHover': #0288d1,
+  'Cyan': #00bcd4,
+  'CyanHover': #0097a7,
+  'Teal': #009688,
+  'TealHover': #00796b,
+  'Green': #4caf50,
+  'GreenHover': #388e3c,
+  'LightGreen': #8bc34a,
+  'LightGreenHover': #689f38,
+  'Lime': #cddc39,
+  'LimeHover': #afb42b,
+  'Yellow': #ffeb3b,
+  'YellowHover': #fbc02d,
+  'Amber': #ffc107,
+  'AmberHover': #ffa000,
+  'Orange': #ff9800,
+  'OrangeHover': #f57c00,
+  'DeepOrange': #ff5722,
+  'DeepOrangeHover': #e64a19,
+  'Brown': #795548,
+  'BrownHover': #5d4037,
+  'Grey': #9e9e9e,
+  'GreyHover': #616161,
+  'White': white,
+  'WhiteHover': darken(white, 10),
+  'Black': black,
+  'BlackHover': lighten(black, 10),
+  'Light': #ecf0f1,
+  'LightHover': darken(#ecf0f1, 10)
+);
+
+$colors:
+  'Red',
+  'Pink',
+  'Purple',
+  'DeepPurple',
+  'Indigo',
+  'Blue',
+  'LightBlue',
+  'Cyan',
+  'Teal',
+  'Green',
+  'LightGreen',
+  'Lime',
+  'Yellow',
+  'Amber',
+  'Orange',
+  'DeepOrange',
+  'Brown',
+  'Grey',
+  'White',
+  'Black',
+  'Light';
+
+@function getColor ($color, $hover: 0) {
+  @if $hover == 0 {
+    @return map-get($colorsCodes, $color);
+  }
+  @else {
+    @return map-get($colorsCodes, "#{$color}Hover");
+  }
+}

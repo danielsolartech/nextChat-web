@@ -1,0 +1,44 @@
+.nextChat-button {
+  display: block;
+  width: auto;
+  text-align: center;
+  padding: .5rem 1rem;
+  font: {
+    size: .85em;
+    family: MontserratSemiBold;
+  }
+  letter-spacing: .02em;
+  text-decoration: none;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+
+  &.outline {
+    background-color: transparent;
+    transition: .4s color ease-in-out, .4s border-color ease-in-out;
+  }
+  &.background {
+    transition: .4s background-color ease-in-out;
+    border-color: transparent;
+  }
+  &.color {
+    transition: .4s color ease-in-out;
+    border-color: transparent;
+    background-color: transparent;
+  }
+  &.full {
+    width: 100%;
+  }
+  &.rounded {
+    border-radius: 30px;
+  }
+  & i {
+    margin-right: .5rem;
+
+    &.right {
+      margin-right: 0;
+      margin-left: .5rem;
+    }
+  }
+}

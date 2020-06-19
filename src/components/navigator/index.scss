@@ -1,0 +1,205 @@
+@import '../../scss/colors.scss';
+
+.nextChat-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 2px 0 rgba(black, .34);
+  min-height: 4rem;
+  height: 4rem;
+
+  @media (max-width: 991.98px) {
+    flex-direction: column;
+    flex-wrap: warp;
+    height: auto;
+    padding: .5rem 1rem;
+  }
+
+  @media (max-width: 575.98px) {
+    padding: 1rem;
+  }
+
+  & .header-left {
+    padding-left: 4rem;
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 1199.98px) {
+      padding-left: 2rem;
+    }
+
+    @media (max-width: 991.98px) {
+      padding-left: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 575.98px) {
+      & .nextChat-logo {
+        font-size: 2.25rem;
+      }
+    }
+
+    & .header-search {
+      margin-left: 2rem;
+      background-color: white;
+      box-shadow: 0 0 2px 0 rgba(black, .34);
+      border-radius: 35px;
+      height: 2rem;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: flex-start;
+      width: 300px;
+
+      @media (max-width: 1199.98px) {
+        width: 200px;
+        margin-left: 1rem;
+      }
+
+      @media (max-width: 991.98px) {
+        width: 300px;
+      }
+
+      @media (max-width: 575.98px) {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      & .search-icon {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        color: darken(silver, 5);
+      }
+      & > input {
+        width: calc(100% - 2rem);
+        border: 0;
+        letter-spacing: .02em;
+        color: darken(silver, 25);
+      }
+    }
+  }
+  & .header-right {
+    list-style: none;
+    padding: 0;
+    padding-right: 4rem;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    max-width: 50%;
+
+    @media (max-width: 1199.98px) {
+      padding-right: 2rem;
+    }
+
+    @media (max-width: 991.98px) {
+      padding-right: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    @media (max-width: 575.98px) {
+      justify-content: center;
+    }
+
+    & > li {
+      margin-left: .5rem;
+
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+      &.active > a, &.active > a:hover {
+        background-color: rgba(getColor('Purple'), .125);
+        color: getColor('Purple') !important;
+      }
+      & > a {
+        text-decoration: none;
+        transition: .4s color ease-in-out, .4s background-color ease-in-out;
+        padding: .5rem 1rem;
+        border-radius: 35px;
+
+        & > i {
+          margin-right: .5rem;
+        }
+        & > span {
+          font-family: MontserratRegular;
+        }
+        &:hover {
+          background-color: rgba(getColor('Grey'), .2);
+        }
+      }
+    }
+    & .right-signin {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      margin: auto;
+      padding-left: 2rem;
+
+      @media (max-width: 1199.98px) {
+        padding-left: 0;
+      }
+
+      @media (max-width: 991.98px) {
+        padding-left: 0;
+        margin-top: .5rem;
+      }
+
+      @media (max-width: 575.98px) {
+        width: 100%;
+      }
+
+      & .one, & .two, & .three {
+        margin-left: .5rem;
+
+        @media (max-width: 575.98px) {
+          margin-left: 0;
+          margin-top: .5rem;
+          width: 100%;
+        }
+      }
+      & .one, & .two {
+        width: 180px;
+
+        @media (max-width: 575.98px) {
+          width: 100%;
+        }
+      }
+      & .two {
+        & .nextChat-button {
+          padding: 0;
+          padding-top: .1rem;
+          padding-left: .25rem;
+          font-size: .6em;
+
+          @media (max-width: 991.98px) {
+            padding-left: 0;
+            padding-right: .25rem;
+            width: 100%;
+            text-align: right;
+          }
+        }
+      }
+      & .three {
+        & .nextChat-button {
+          height: calc(2rem + 1px);
+
+          @media (max-width: 575.98px) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

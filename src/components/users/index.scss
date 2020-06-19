@@ -1,0 +1,95 @@
+@import '../../scss/colors.scss';
+
+.nextChat-users-box {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  & > p {
+
+  }
+  & > li {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: .5rem 1rem;
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+    &:nth-child(even) {
+      flex-flow: row-reverse nowrap;
+      animation-name: fadeInRight;
+      
+      & .user-info {
+        padding-left: 0;
+        padding-right: 1rem;
+
+        & .info-username {
+          text-align: right;
+        }
+        & .info-extra {
+          & .extra-icon {
+            flex-flow: row-reverse nowrap;
+
+            & > i {
+              margin-right: 0;
+              margin-left: .25rem;
+            }
+          }
+        }
+      }
+    }
+    & .user-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: {
+        repeat: no-repeat;
+        size: cover;
+        position: center;
+      }
+      box-shadow: 0 0 2px 0 rgba(black, .34);
+    }
+    & .user-info {
+      padding-left: 1rem;
+
+      & .info-username {
+        display: block;
+        text-decoration: none;
+        font: {
+          size: .9em;
+          family: MontserratSemiBold;
+        }
+        letter-spacing: .02em;
+        transition: .2s color ease-in-out;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      & .info-extra {
+        margin-top: .25rem;
+
+        & .extra-icon {
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: flex-start;
+          font-size: .8em;
+          color: darken(getColor('Grey'), 15);
+
+          & > i {
+            margin-right: .25rem;
+          }
+          & > span {
+            font-family: MontserratRegular;
+          }
+        }
+      }
+    }
+  }
+}

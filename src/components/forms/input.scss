@@ -1,0 +1,161 @@
+@import '../../scss/colors.scss';
+
+.nextChat-input {
+  width: 100%;
+  margin-top: 1rem;
+
+  &:nth-child(1) {
+    margin-top: 0;
+  }
+  & > label {
+    font: {
+      size: .9em;
+      family: MontserratSemiBold;
+    }
+    letter-spacing: .02em;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: .5rem;
+
+    & .label-info {
+      position: relative;
+      margin-left: .25rem;
+      cursor: pointer;
+      
+      &:hover .info-hover {
+        display: block;
+      }
+      & > i {
+        color: darken(silver, 15);
+        font-size: .9em;
+      }
+      & .info-hover {
+        position: absolute;
+        display: none;
+        left: calc(100% + .6rem);
+        top: -50%;
+        z-index: 10;
+        background-color: darken(white, 2.5);
+        border-radius: 4px;
+        padding: .5rem;
+        width: 200px;
+        box-shadow: 0 0 2px 0 rgba(black, .34);
+        color: rgba(black, .8);
+        line-height: 1.3;
+        font: {
+          size: .8em;
+          family: MontserratRegular;
+        }
+        letter-spacing: .02em;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: calc(-.5rem - 1px);
+          top: calc(.5rem - 1px);
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: calc(.45rem + 1px) calc(.6rem - 1px) calc(.45rem + 1px) 0;
+          border-color: transparent darken(white, 15) transparent transparent;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          left: -.5rem;
+          top: .5rem;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: .45rem .6rem .45rem 0;
+          border-color: transparent darken(white, 2.5) transparent transparent;
+        }
+      }
+    }
+  }
+  & .input-box {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid silver;
+    overflow: hidden;
+    width: 100%;
+    color: darken(silver, 15);
+
+    &.focused {
+      color: getColor('Purple');
+    }
+    & .box-icon {
+      height: 2rem;
+      width: 2rem;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      color: currentColor;
+    }
+    & > input {
+      border: none;
+      height: 2rem;
+      width: calc(100% - 2rem);
+      padding-right: .5rem;
+      letter-spacing: .02em;
+      font-family: MontserratRegular;
+      color: currentColor;
+    }
+  }
+  & .input-radios {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: .5rem;
+
+    & .radios-radio {
+      margin-left: .5rem;
+
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+      &.gender > input {
+        &:checked + label, &:checked + label:hover {
+          background-color: rgba(getColor('Purple'), .15);
+        }
+        & + label:hover, &:checked + label {
+          color: getColor('Purple');
+        }
+        & + label {
+          color: darken(silver, 15);
+        }
+      }
+      & > input {
+        display: none;
+
+        & + label {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          padding: .5rem 1rem;
+          cursor: pointer;
+          transition: .4s background-color ease-in-out, .4s color ease-in-out;
+          font: {
+            size: .8em;
+            family: MontserratSemiBold;
+          }
+          letter-spacing: .02em;
+
+          &:hover {
+            background-color: rgba(black, .1);
+          }
+        }
+      }
+    }
+  }
+}
