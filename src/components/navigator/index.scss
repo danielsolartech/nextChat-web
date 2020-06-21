@@ -8,6 +8,9 @@
   box-shadow: 0 0 2px 0 rgba(black, .34);
   min-height: 4rem;
   height: 4rem;
+  position: relative;
+  z-index: 100;
+  background-color: white;
 
   @media (max-width: 991.98px) {
     flex-direction: column;
@@ -37,13 +40,16 @@
       width: 100%;
     }
 
-    @media (max-width: 575.98px) {
-      & .nextChat-logo {
+    & .nextChat-logo {
+      text-decoration: none;
+
+      @media (max-width: 575.98px) {
         font-size: 2.25rem;
       }
     }
-
     & .header-search {
+      $borderRadius: 12px;
+
       margin-left: 2rem;
       background-color: white;
       box-shadow: 0 0 2px 0 rgba(black, .34);
@@ -54,6 +60,8 @@
       align-items: center;
       justify-content: flex-start;
       width: 300px;
+      position: relative;
+      z-index: 100;
 
       @media (max-width: 1199.98px) {
         width: 200px;
@@ -70,7 +78,20 @@
         margin-top: 1rem;
       }
 
-      & .search-icon {
+      &.active {
+        border-radius: $borderRadius $borderRadius 0 0;
+
+        & > input {
+          width: calc(100% - 4rem);
+        }
+        & .search-cancel {
+          display: flex;
+        }
+        & .search-content {
+          display: block;
+        }
+      }
+      & .search-icon, & .search-cancel {
         width: 2rem;
         height: 2rem;
         display: flex;
@@ -79,11 +100,87 @@
         justify-content: center;
         color: darken(silver, 5);
       }
+      & .search-cancel {
+        display: none;
+        cursor: pointer;
+        transition: .4s color ease-in-out;
+
+        &:hover {
+          color: darken(silver, 10);
+        }
+      }
       & > input {
         width: calc(100% - 2rem);
         border: 0;
         letter-spacing: .02em;
         color: darken(silver, 25);
+      }
+      & .search-content {
+        display: none;
+        position: absolute;
+        z-index: 100;
+        top: 100%;
+        left: 0;
+        border-radius: 0 0 $borderRadius $borderRadius;
+        box-shadow: 0 0 2px 0 rgba(black, .34);
+        background-color: white;
+        width: 100%;
+        overflow: hidden;
+
+        & > p {
+          margin: 0;
+          padding: .5rem 1rem;
+          text-align: center;
+          font-size: .85em;
+        }
+        & > a {
+          $avatarSize: 35px;
+
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: flex-start;
+          padding: .5rem;
+          transition: .4s background-color ease-in-out;
+          text-decoration: none;
+
+          &:hover {
+            background-color: rgba(black, .05);
+          }
+          & .user-avatar {
+            width: $avatarSize;
+            height: $avatarSize;
+            border-radius: 50%;
+            background: {
+              repeat: no-repeat;
+              size: cover;
+              position: center;
+            }
+            box-shadow: 0 0 2px 0 rgba(black, .34);
+          }
+          & .user-info {
+            width: calc(100% - #{$avatarSize});
+            padding-left: .5rem;
+
+            & .info-username {
+              font: {
+                size: .9em;
+                family: MontserratSemiBold;
+              }
+              letter-spacing: .02em;
+            }
+            & .info-followers {
+              color: darken(silver, 15);
+              font: {
+                size: .7em;
+                family: MontserratRegular;
+              }
+              letter-spacing: .02em;
+              margin-top: .15rem;
+            }
+          }
+        }
       }
     }
   }
@@ -126,17 +223,40 @@
       & > a {
         text-decoration: none;
         transition: .4s color ease-in-out, .4s background-color ease-in-out;
-        padding: .5rem 1rem;
+        padding: .5rem;
         border-radius: 35px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: flex-start;
+        color: darken(silver, 25);
 
-        & > i {
-          margin-right: .5rem;
-        }
-        & > span {
-          font-family: MontserratRegular;
-        }
         &:hover {
           background-color: rgba(getColor('Grey'), .2);
+        }
+        & > i, & .user-avatar {
+          margin-right: .5rem;
+        }
+        & > i {
+          padding: .25rem 0;
+        }
+        & .user-avatar {
+          display: inline-block;
+          width: 1.5rem;
+          height: 1.5rem;
+          border-radius: 50%;
+          background: {
+            repeat: no-repeat;
+            size: cover;
+            position: center;
+          }
+        }
+        & > span {
+          font: {
+            size: .85em;
+            family: MontserratSemiBold;
+          }
+          letter-spacing: .02em;
         }
       }
     }
@@ -201,5 +321,24 @@
         }
       }
     }
+  }
+}
+
+.nextChat-header-message {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 4rem;
+
+  & > p {
+    margin: 0;
+    padding: 0;
+    font: {
+      size: .95em;
+      family: MontserratRegular;
+    }
+    letter-spacing: .02em;
   }
 }

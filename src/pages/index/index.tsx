@@ -7,6 +7,8 @@ import Form from '../../components/forms';
 import Button from '../../components/forms/button';
 import { User } from '../../types';
 import { API_URL } from '../../data/consts/data';
+import { submitSignUp } from './submits';
+import Footer from '../../components/footer';
 import './index.scss';
 
 const Index: React.FC = () => {
@@ -69,7 +71,7 @@ const Index: React.FC = () => {
         </div>}
       </div>
       <div className="nextChat-index-page middle">
-        <div className="index-right nextChat-animation fadeInLeft">
+        <div className="index-right nextChat-animation fadeInLeft" onKeyDown={(key) => key.keyCode === 13 && submitSignUp()}>
           <Form
             title="Sign up"
             description="If you do not have an account complete this form and sign up free."
@@ -81,6 +83,7 @@ const Index: React.FC = () => {
                 label: 'Username',
                 description: 'Your username will be how your friends or workmates find you in NextChat. It must be between 4 and 25 characters.',
                 placeholder: 'Example: nextChat',
+                message: true,
               },
               {
                 name: 'emailRegister',
@@ -89,6 +92,7 @@ const Index: React.FC = () => {
                 label: 'E-mail address',
                 description: 'You will use this e-mail address to verify your account and get more features.',
                 placeholder: 'Example: info@nextchat.com',
+                message: true,
               },
               {
                 name: 'passwordRegister',
@@ -97,6 +101,7 @@ const Index: React.FC = () => {
                 label: 'New password',
                 description: 'Enter a new password for your account, you do not tell it with others because we are not responsable for your acts. It must be between 8 and 20 characters.',
                 placeholder: '••••••••',
+                message: true,
               },
               {
                 name: 'repeatPasswordRegister',
@@ -105,6 +110,7 @@ const Index: React.FC = () => {
                 label: 'Repeat your new password',
                 description: 'It is only for security.',
                 placeholder: '••••••••',
+                message: true,
               },
               {
                 name: 'genderRegister',
@@ -151,6 +157,7 @@ const Index: React.FC = () => {
               extraProps: {
                 'text-color': 'White',
               },
+              onClick: () => submitSignUp(),
             }}
           />
         </div>
@@ -237,91 +244,7 @@ const Index: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="nextChat-index-page full footer nextChat-animation fadeInUp">
-        <div className="footer-left">
-          <div className="nextChat-logo">
-            NextChat
-          </div>
-          <span>
-            &copy; 2020 NextChat ~ All rights reserved.
-          </span>
-
-          <div className="links">
-            <a href="https://www.twitter.com/danielsolartech/" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-twitter" />
-            </a>
-            <a href="https://www.github.com/danielsolartech/" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-github" />
-            </a>
-            <a href="https://www.facebook.com/danielsolartech/" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-facebook-f" />
-            </a>
-          </div>
-        </div>
-        <div className="footer-right">
-          <ul className="footer-top">
-            <li>
-              <h1>Community</h1>
-
-              <Link to="/explore">
-                Explore
-              </Link>
-              <Link to="/news">
-                News
-              </Link>
-              <Link to="/team">
-                Team
-              </Link>
-              <Link to="/about">
-                About us
-              </Link>
-            </li>
-            <li>
-              <h1>Interest</h1>
-
-              <Link to="/usage">
-                How to use
-              </Link>
-              <Link to="/contribute">
-                How to contribute
-              </Link>
-            </li>
-            <li>
-              <h1>Resources</h1>
-
-              <Link to="/developers">
-                API for developers
-              </Link>
-            </li>
-            <li>
-              <h1>Downloads</h1>
-              <Link to="/mobile">
-                Android
-              </Link>
-              <Link to="/desktop">
-                Windows/Linux
-              </Link>
-            </li>
-          </ul>
-          <ul className="footer-bottom">
-            <li>
-              <Link to="/terms">
-                Terms of Service
-              </Link>
-            </li>
-            <li>
-              <Link to="/privacy">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link to="/security">
-                Security
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Footer />
     </>
   );
 };

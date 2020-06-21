@@ -14,6 +14,7 @@ export interface IRoutes {
 
 const Index: React.LazyExoticComponent<React.FC> = React.lazy(() => import('./index'));
 const Dashboard: React.LazyExoticComponent<React.FC> = React.lazy(() => import('./dashboard'));
+const User: React.LazyExoticComponent<React.FC> = React.lazy(() => import('./user'));
 
 const routes: IRoutes = {
   pages: [
@@ -32,7 +33,23 @@ const routes: IRoutes = {
         '/me',
       ],
       whenAuthenticated: Dashboard,
-      whenNoAuthenticated: () => <Redirect to="/signin" />,
+      whenNoAuthenticated: () => <Redirect to="/" />,
+    },
+    {
+      urls: [
+        '/verify/:type',
+        '/verify/:type/:token',
+      ],
+      whenAuthenticated: React.lazy(() => import('./verify')),
+      whenNoAuthenticated: () => <Redirect to="/" />,
+    },
+    {
+      urls: [
+        '/user/:username',
+        '/usuario/:username',
+      ],
+      whenAuthenticated: User,
+      whenNoAuthenticated: User,
     },
     {
       urls: [
@@ -41,7 +58,7 @@ const routes: IRoutes = {
         '/salir',
       ],
       whenAuthenticated: React.lazy(() => import('./signout')),
-      whenNoAuthenticated: () => <Redirect to="/signin" />,
+      whenNoAuthenticated: () => <Redirect to="/" />,
     }
   ],
 };

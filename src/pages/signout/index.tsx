@@ -1,26 +1,12 @@
 import React from 'react';
-import { API_URL } from '../../data/consts/data';
+import { sendDelete } from '../../utils/routes';
 
 const SignOut: React.FC = () => {
   const [checked, setChecked] = React.useState<boolean>(false);
   const [completed, setCompleted] = React.useState<boolean>(false);
 
   if (!checked && !completed) {
-    const auth_id: string | null = localStorage.getItem('nextchat_user_id');
-    const auth_token: string | null = localStorage.getItem('nextchat_token');
-
-
-    fetch(API_URL + 'users/signout', {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        auth_id,
-        auth_token,
-      }),
-    }).then((res) => res.json()).then((data) => {
+    sendDelete('users/signout').then((data) => {
       if (data.status) {
         localStorage.removeItem('nextchat_user_id');
         localStorage.removeItem('nextchat_token');
@@ -28,7 +14,7 @@ const SignOut: React.FC = () => {
 
       setChecked(true);
       setCompleted(data.status);
-      document.location.href = '/signin';
+      document.location.href = '/';
     }).catch(() => setChecked(true));
   }
 

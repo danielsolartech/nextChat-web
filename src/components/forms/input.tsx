@@ -100,7 +100,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         </label>
       )}
       {Elements}
-      {props.message && <div className="input-message"></div>}
+      {props.message && <div className="input-message" id={props.name + 'Message'}></div>}
     </div>
   );
 };

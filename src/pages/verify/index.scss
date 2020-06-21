@@ -1,0 +1,57 @@
+.nextChat-verify {
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 4rem);
+
+  // Account
+  &.account {
+    & > .verify-icon {
+      position: relative;
+      font-size: 2.5rem;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+
+      & > i {
+        &:nth-of-type(2) {
+          color: white;
+          position: absolute;
+          font-size: .5em;
+          margin-top: .5px;
+        }
+      }
+    }
+  }
+  // End Account
+  & > h1 {
+    margin: 0;
+    margin-top: 1.5rem;
+    letter-spacing: .02em;
+  }
+  & > p {
+    margin-top: 1.5rem;
+    max-width: 70%;
+    line-height: 1.5;
+    text-align: center;
+  }
+  & > .verify-redirect {
+    margin-top: .5rem;
+    padding: .5rem 1rem;
+    border-radius: 4px;
+    letter-spacing: .02em;
+    font-size: .95em;
+
+    & > i {
+      margin-right: .5rem;
+    }
+    & > span {
+      font-family: MontserratSemiBold;
+    }
+  }
+}

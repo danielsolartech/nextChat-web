@@ -1,0 +1,242 @@
+.nextChat-user-page {
+  $borderRadius: 8px;
+
+  width: 65%;
+  margin: 0 auto;
+  min-height: calc(100vh - 4rem);
+  height: auto;
+
+  & > .user-header, & > .user-body {
+    width: 100%;
+  }
+  & > .user-header {
+    position: relative;
+    box-shadow: 0 0 2px 0 rgba(black, .34);
+    border-radius: 0 0 $borderRadius $borderRadius;
+
+    & > .header-banner {
+      width: 100%;
+      height: 250px;
+      background: {
+        size: cover;
+        position: center;
+        repeat: no-repeat;
+      }
+      border-radius: 0 0 $borderRadius $borderRadius;
+    }
+    & > .header-avatar {
+      $avatarSize: 120px;
+
+      position: absolute;
+      left: 2rem;
+      bottom: 2rem;
+      width: $avatarSize;
+      height: $avatarSize;
+      border-radius: $borderRadius;
+      background: {
+        repeat: no-repeat;
+        size: cover;
+        position: center;
+      }
+      box-shadow: 0 0 2px 0 rgba(black, .34);
+    }
+    & > .header-links {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: rgba(black, .1);
+      backdrop-filter: blur(4px);
+
+      & > li {
+        &:nth-of-type(1) > a {
+          padding-left: .5rem;
+        }
+        &:last-of-type > a {
+          padding-right: .5rem;
+        }
+        & > a {
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: flex-start;
+          padding: .5rem;
+          text-decoration: none;
+          color: rgba(white, .8);
+          transition: .4s color ease-in-out;
+
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  & > .user-body {
+    margin: 2rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    & > .body-left {
+      width: calc(55% - 1rem);
+
+      & > .left-header {
+        padding-left: 2rem;
+
+        // Username
+        & > .header-username {
+          font: {
+            size: 1.2em;
+            family: MontserratBold;
+          }
+          letter-spacing: .02em;
+          position: relative;
+          width: auto;
+          display: flex;
+          flex-flow: row wrap;
+          align-content: center;
+          justify-content: flex-start;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 2.5rem;
+            height: 2px;
+            background-color: currentColor;
+          }
+          & > .verified {
+            position: relative;
+            margin-left: .5rem;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: center;
+
+            & > i {
+              display: block;
+
+              &:nth-of-type(2) {
+                position: absolute;
+                color: white;
+                font-size: .45em;
+                margin-top: .5px;
+              }
+            }
+          }
+        }
+        // End Username
+      }
+      & > .left-body {
+        margin-top: 2rem;
+
+        // Biography
+        & > .user-biography {
+          padding-left: 2rem;
+          line-height: 1.5;
+          letter-spacing: .02em;
+          font: {
+            size: .9em;
+            family: MontserratRegular;
+          }
+        }
+        // End Biography
+        // Stats
+        & > .user-stats {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          align-content: flex-start;
+          justify-content: flex-start;
+          margin-top: 1rem;
+          padding-left: 1.5rem;
+
+          & > li {
+            margin-left: .5rem;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: white;
+            box-shadow: 0 0 2px 0 rgba(black, .34);
+            border-radius: 35px;
+            padding: .25rem;
+            font-size: .85em;
+
+            &:nth-of-type(1) {
+              margin-left: 0;
+            }
+            & > .icon {
+              width: 2em;
+              height: 2em;
+              display: flex;
+              flex-flow: row wrap;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              background-color: rgba(black, .15);
+              color: rgba(black, .8);
+            }
+            & > span {
+              display: block;
+              padding-left: .5rem;
+              padding-right: .75rem;
+              font-family: MontserratRegular;
+              letter-spacing: .02em;
+            }
+          }
+        }
+        // End Stats
+      }
+    }
+    & > .body-right {
+      width: calc(45% - 1rem);
+
+      // Sign Up
+      & > .right-signup {
+        padding: 2rem;
+        background-color: rgba(black, .075);
+        border-radius: $borderRadius;
+
+        & > h1 {
+          margin: 0;
+          padding: 0;
+          font: {
+            size: 1.2em;
+            family: MontserratSemiBold;
+          }
+          letter-spacing: .02em;
+        }
+        & > p {
+          margin: 1rem 0;
+          padding: 0;
+          line-height: 1.5;
+          font: {
+            size: .9em;
+            family: MontserratRegular;
+          }
+          letter-spacing: .02em;
+          color: rgba(black, .8);
+        }
+        & > .nextChat-button {
+          width: 8rem;
+        }
+      }
+      // End Sign Up
+    }
+  }
+}
