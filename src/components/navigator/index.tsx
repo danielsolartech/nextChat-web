@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { User } from '../../types';
 import { checkAuthenticated } from '../../data/consts/data';
 import { useLocation, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Reducers } from '../../data';
-import { setCurrentPage, setSearchResults, setHeaderMessage } from '../../data/actions/general';
+import { setCurrentPage, setSearchResults, setHeaderMessage, setAuthUser, setServiceWorker } from '../../data/actions/general';
 import Input from '../forms/input';
 import Button from '../forms/button';
 import * as submits from './submits';
 import './index.scss';
 
 const Navigator: React.FC = () => {
-  const [user, setUser] = React.useState<User | null>(null);
   const [checked, setChecked] = React.useState<boolean>(false);
   const [checkedMessageTime, setCheckedMessageTime] = React.useState<boolean>(false);
   const [searchWord, setSearchWord] = React.useState<string>('');
@@ -20,19 +18,26 @@ const Navigator: React.FC = () => {
   const general = useSelector((state: Reducers) => state.general);
   const dispatch = useDispatch();
 
-  if (!user && !checked) {
+  if (!checked) {
     checkAuthenticated()
-      .then((data) => {
-        setUser(data.user);
-        setChecked(true);
-      }).catch(() => setChecked(true));
+      .then((data) => dispatch(setAuthUser(data.user)))
+      .catch(() => { });
 
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/assets/workers/sw.js')
+        .then(async (register) => dispatch(setServiceWorker(register)))
+        .catch(() => { });
+    }
+
+    setChecked(true);
     return null;
   }
 
   const currentPage = location.pathname.split('/')[1] || 'index';
   if (!general.currentPage || !general.currentPage.length || general.currentPage !== currentPage) {
     dispatch(setCurrentPage(currentPage));
+
+    return null;
   }
 
   const isActive = (page: string): string => {
@@ -64,8 +69,8 @@ const Navigator: React.FC = () => {
     dispatch(setSearchResults([]));
   };
 
-  if (user && !general.header_message.left_time) {
-    if (!user.verified) {
+  if (general.auth_user && !general.header_message.left_time) {
+    if (!general.auth_user.verified) {
       let data: {
         verify: string,
         button: 'true' | 'false',
@@ -74,8 +79,8 @@ const Navigator: React.FC = () => {
         button: 'true',
       };
 
-      if (user.verified_sended) {
-        data.verify = `The verification code was sent to your e-mail <b>${user.email.slice(0, 3) + (user.email.slice(4, user.email.indexOf('@')).split('').map((_) => '*').join('')) + '@' + user.email.split('@')[1]}</b>, please confirm it.`;
+      if (general.auth_user.verified_sended) {
+        data.verify = `The verification code was sent to your e-mail <b>${general.auth_user.email.slice(0, 3) + (general.auth_user.email.slice(4, general.auth_user.email.indexOf('@')).split('').map((_) => '*').join('')) + '@' + general.auth_user.email.split('@')[1]}</b>, please confirm it.`;
         data.button = 'false';
       }
 
@@ -123,9 +128,9 @@ const Navigator: React.FC = () => {
                     <div className="info-username text-hover" text-color="Purple">
                       {user.username}
                     </div>
-                    <div className="info-followers">
+                    {user.followers > 0 && <div className="info-followers">
                       {user.followers} follower{user.followers === 1 ? '' : 's'}
-                    </div>
+                    </div>}
                   </div>
                 </Link>
               ))}
@@ -133,7 +138,7 @@ const Navigator: React.FC = () => {
           </div>
         </div>
         <ul className="header-right">
-          {user && <>
+          {general.auth_user && <>
             <li className={isActive('dashboard') || isActive('index') || isActive('inicio')}>
               <Link to="/dashboard" onClick={() => changePage('dashboard')}>
                 <i className="fas fa-home" />
@@ -142,10 +147,11 @@ const Navigator: React.FC = () => {
             </li>
             <li><Link to="/messages">
               <i className="fas fa-bell" style={{ marginRight: '0', padding: '.25rem' }} />
+              {general.notification_count > 0 && <div className="badge" />}
             </Link></li>
-            <li><Link to={'/user/' + user.username}>
-              <div className="user-avatar" style={{ backgroundImage: 'url("' + user.profile_image + '")' }} />
-              <span>{user.username}</span>
+            <li><Link to={'/user/' + general.auth_user.username}>
+              <div className="user-avatar" style={{ backgroundImage: 'url("' + general.auth_user.profile_image + '")' }} />
+              <span>{general.auth_user.username}</span>
             </Link></li>
             <li className={isActive('messages')}><Link to="/messages" onClick={() => changePage('messages')}>
               <i className="fas fa-comments" />
@@ -158,7 +164,7 @@ const Navigator: React.FC = () => {
               <i className="fas fa-sign-out-alt" style={{ marginRight: '0', padding: '.25rem' }} />
             </Link></li>
           </>}
-          {!user && <>
+          {!general.auth_user && <>
             <div className="right-signin" onKeyDown={(key) => key.keyCode === 13 && submits.submitSignIn()}>
               <div className="one">
                 <Input
@@ -217,12 +223,12 @@ const Navigator: React.FC = () => {
           </>}
         </ul>
       </div>
-      {(user && Object.keys(general.header_message).length > 0 && !isActive('verify').length) && (
+      {(general.auth_user && Object.keys(general.header_message).length > 0 && !isActive('verify').length) && (
         <div className="nextChat-header-message nextChat-animation fadeInDown" background-color={general.header_message.color || 'Purple'}>
           <p
             text-color="White"
             dangerouslySetInnerHTML={{
-              __html: general.header_message.verify,
+              __html: general.header_message.verify || general.header_message.message,
             }}
           />
 

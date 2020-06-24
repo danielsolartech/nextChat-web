@@ -8,7 +8,7 @@ interface FormProps {
   description?: string;
   extra?: string | React.ReactElement;
 
-  inputs: InputProps[];
+  inputs: (InputProps | React.ReactElement)[];
   submitButton: ButtonsProps;
   cancelButton?: ButtonsProps;
 }
@@ -25,7 +25,9 @@ const Form: React.FC<FormProps> = (props: FormProps) => {
         </div>}
       </div>
       <div className="form-body">
-        {props.inputs.length > 0 && props.inputs.map((input) => <Input key={input.name} {...input} />)}
+        {props.inputs.length > 0 && props.inputs.map((input) => (
+          ((o: any): o is InputProps => 'name' in o && 'type' in o)(input) ? <Input key={input.name} {...input} /> : input
+        ))}
 
         {props.extra && (
           <div className="body-extra">

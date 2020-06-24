@@ -12,7 +12,7 @@ export interface Link {
 }
 
 export const getIcon = (link: Link): string => {
-  switch (link.name) {
+  switch (link.name.toLowerCase()) {
     case 'facebook': {
       return 'fab fa-facebook-f';
     }

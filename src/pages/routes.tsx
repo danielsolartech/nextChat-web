@@ -45,6 +45,14 @@ const routes: IRoutes = {
     },
     {
       urls: [
+        '/settings',
+        '/settings/:category',
+      ],
+      whenAuthenticated: React.lazy(() => import('./settings')),
+      whenNoAuthenticated: () => <Redirect to="/" />,
+    },
+    {
+      urls: [
         '/user/:username',
         '/usuario/:username',
       ],

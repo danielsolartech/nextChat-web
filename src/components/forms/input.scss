@@ -75,6 +75,24 @@
       }
     }
   }
+  // TextArea
+  & > .textarea-box {
+    resize: vertical;
+    width: 100%;
+    min-height: 100px;
+    max-height: 250px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid silver;
+    padding: .75rem;
+    line-height: 1.5;
+    font: {
+      size: .9em;
+      family: MontserratRegular;
+    }
+  }
+  // End TextArea
+  // Input
   & .input-box {
     display: flex;
     flex-flow: row nowrap;
@@ -87,9 +105,6 @@
     width: 100%;
     color: darken(silver, 15);
 
-    &.focused {
-      color: getColor('Purple');
-    }
     & .box-icon {
       height: 2rem;
       width: 2rem;
@@ -109,6 +124,8 @@
       color: currentColor;
     }
   }
+  // End Input
+  // Radio Input
   & .input-radios {
     display: flex;
     flex-flow: row wrap;
@@ -158,6 +175,8 @@
       }
     }
   }
+  // End Radio Input
+  // Message
   & .input-message {
     margin-top: .25rem;
     margin-left: .25rem;
@@ -168,4 +187,5 @@
     letter-spacing: .02em;
     color: getColor('Red');
   }
+  // End Message
 }

@@ -1,0 +1,97 @@
+@import '../../scss/colors.scss';
+
+.nextChat-select-form {
+  $borderRadius: 6px;
+
+  position: relative;
+
+  &.active {
+    & > .select-selected {
+      border-radius: $borderRadius $borderRadius 0 0;
+    }
+    & > .select-options {
+      display: block;
+    }
+  }
+  // Selected Option
+  & > .select-selected {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: $borderRadius;
+    background-color: white;
+    border: 1px solid silver;
+    padding: .5rem;
+    cursor: pointer;
+
+    & > .selected-value {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: .9rem;
+
+      & > .value-icon {
+        width: 1.25rem;
+        margin-right: .5rem;
+        text-align: center;
+      }
+      & > .value-label {
+        font-family: MontserratRegular;
+        letter-spacing: .02em;
+      }
+    }
+    & > .selected-arrow {
+      margin-left: 1.5rem;
+      padding-right: .5rem;
+    }
+  }
+  // End Selected Option
+  // Options
+  & > .select-options {
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: 1px solid silver;
+    border-top: 0;
+    display: none;
+    border-radius: 0 0 $borderRadius $borderRadius;
+    overflow: hidden;
+
+    & > li {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      padding: .5rem;
+      transition: .4s background-color ease-in-out, .4s color ease-in-out;
+      font-size: .85em;
+
+      &:hover {
+        background-color: rgba(black, .075);
+      }
+      &.active, &.active:hover {
+        background-color: rgba(getColor('Purple'), .175);
+        color: getColor('Purple');
+      }
+      & > .option-icon {
+        margin-right: .5rem;
+        width: 1.25rem;
+        text-align: center;
+      }
+      & > span {
+        font-family: MontserratRegular;
+        letter-spacing: .02em;
+      }
+    }
+  }
+  // End Options
+}

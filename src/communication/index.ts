@@ -4,6 +4,7 @@ import { User } from '../types';
 import { API_URL } from '../data/consts/data';
 import Packet from './incoming/packet';
 import PacketComposer from './outgoing';
+import Store from '../data';
 
 class CommunicationManager {
   private incoming: IncomingManager;
@@ -14,6 +15,10 @@ class CommunicationManager {
   ) {
     this.incoming = new IncomingManager();
     this.socket = SocketIO.connect(API_URL + '?user_id=' + this.user.id);
+  }
+
+  getStore() {
+    return Store;
   }
 
   getUser(): User {

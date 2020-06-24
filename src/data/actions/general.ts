@@ -16,3 +16,23 @@ export const setHeaderMessage: ActionFC<{ [key: string]: string }, { [key: strin
   type: consts.SET_HEADER_MESSAGE,
   payload: message,
 });
+
+export const setAuthUser: ActionFC<User | null, User | null> = (user: User | null): Action<User | null> => ({
+  type: consts.SET_AUTH_USER,
+  payload: user,
+});
+
+export const setServiceWorker: ActionFC<ServiceWorkerRegistration | null, ServiceWorkerRegistration | null> = (sw: ServiceWorkerRegistration | null): Action<ServiceWorkerRegistration | null> => ({
+  type: consts.SET_SERVICE_WORKER,
+  payload: sw,
+});
+
+export const setNotificationCount: ActionFC<number, number> = (count: number): Action<number> => ({
+  type: consts.SET_NOTIFICATION_COUNT,
+  payload: count,
+});
+
+export const setProfileSettings: ActionFC<{ [key: string]: any }, { [key: string]: any }> = (settings: { [key: string]: any }): Action<{ [key: string]: any }> => ({
+  type: consts.SET_PROFILE_SETTINGS,
+  payload: settings,
+});

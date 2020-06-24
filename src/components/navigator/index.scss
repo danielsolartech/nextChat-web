@@ -230,6 +230,7 @@
         align-items: center;
         justify-content: flex-start;
         color: darken(silver, 25);
+        position: relative;
 
         &:hover {
           background-color: rgba(getColor('Grey'), .2);
@@ -257,6 +258,17 @@
             family: MontserratSemiBold;
           }
           letter-spacing: .02em;
+          min-width: 40px;
+          text-align: center;
+        }
+        & > .badge {
+          background-color: getColor('Red');
+          width: .6em;
+          height: .6em;
+          border-radius: 50%;
+          position: absolute;
+          top: 8px;
+          right: 10px;
         }
       }
     }

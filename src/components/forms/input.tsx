@@ -11,16 +11,18 @@ interface InputOptions {
 
 export interface InputProps {
   name: string;
-  type: 'email' | 'text' | 'password' | 'checkbox' | 'radio';
+  type: 'email' | 'text' | 'textarea' | 'password' | 'checkbox' | 'radio';
   icon?: string;
   label?: string;
   description?: string;
   placeholder?: string;
   options?: InputOptions[];
+  defaultValue?: string;
   defaultChecked?: string;
-  message?: boolean;
+  message?: string | boolean;
 
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onEnter?: () => void;
+  onChange?: (value: string) => void;
 }
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
@@ -52,7 +54,8 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         {props.options.map((option) => (
           <div key={option.name} className={option.className + ' radios-radio'} {...option.extraProps}>
             <input type="radio" name={props.name + 'Input'} id={option.name + 'IRadio'} value={option.value}
-              defaultChecked={props.defaultChecked === option.name} />
+              defaultChecked={props.defaultChecked === option.name}
+              onChange={(e) => props.onChange && props.onChange(e.target.value)} />
             <label htmlFor={option.name + 'IRadio'}>
               {option.label}
             </label>
@@ -60,22 +63,27 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         ))}
       </div>
     );
+  } else if (props.type === 'textarea') {
+    labelProps.htmlFor = `${props.name}TextArea`;
+
+    Elements = (
+      <textarea className="textarea-box" name={props.name} id={`${props.name}TextArea`} placeholder={props.placeholder}
+        defaultValue={props.defaultValue} onChange={(e) => props.onChange && props.onChange(e.target.value)} />
+    );
   } else if (props.type === 'text' || props.type === 'email' || props.type === 'password') {
     if (!props.icon) {
       throw new Error('The input icon is required.');
     }
 
-    labelProps.htmlFor = props.name + 'Input';
-
-    let focused: boolean = false;
+    labelProps.htmlFor = `${props.name}Input`;
 
     Elements = (
-      <div className={'input-box' + (focused ? ' focused' : '')}>
+      <div className="input-box">
         <div className="box-icon">
           <i className={props.icon} />
         </div>
-        <input type={props.type} name={props.name} id={props.name + 'Input'} placeholder={props.placeholder}
-          onChange={props.onChange} onClick={() => { focused = true; }} />
+        <input type={props.type} name={props.name} id={`${props.name}Input`} placeholder={props.placeholder}
+          onChange={(e) => props.onChange && props.onChange(e.target.value)} defaultValue={props.defaultValue} />
       </div>
     );
   }
@@ -85,7 +93,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
   }
 
   return (
-    <div className="nextChat-input">
+    <div className="nextChat-input" onKeyDown={(e) => e.keyCode === 13 && props.onEnter && props.onEnter()}>
       {props.label && (
         <label {...labelProps}>
           {props.label}
@@ -100,7 +108,9 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         </label>
       )}
       {Elements}
-      {props.message && <div className="input-message" id={props.name + 'Message'}></div>}
+      {props.message && <div className="input-message" id={props.name + 'Message'} dangerouslySetInnerHTML={{
+        __html: typeof props.message === 'string' ? props.message : ''
+      }} />}
     </div>
   );
 };
